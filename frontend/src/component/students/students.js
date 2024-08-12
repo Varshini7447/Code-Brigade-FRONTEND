@@ -35,16 +35,16 @@ export const UsersData = () => {
     }
     return (
         <>
+        
             <Profile />
             <TableContainer>
-            <TableCaption>Students data</TableCaption>
+                {/* <TableCaption>Students data</TableCaption> */}
                 <Table variant='simple'>
-                    
                     <Thead>
                         <Tr>
                             <Th>Email</Th>
                             <Th>Password</Th>
-                            <Th >FirstName</Th>
+                            <Th>FirstName</Th>
                             <Th >LastName</Th>
 
                         </Tr>
@@ -66,5 +66,5 @@ export const UsersData = () => {
         </>
     )
 }
-
+export default UsersData;
 
