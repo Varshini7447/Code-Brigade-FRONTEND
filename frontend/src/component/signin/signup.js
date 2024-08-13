@@ -93,6 +93,7 @@ export const SignInPage = () => {
         .then((res) => {
           if (res.data.message) {
             console.log(res);
+            sessionStorage.auth=JSON.stringify(res?.data?.values)
             alert("Signin successful");
             window.location.href = "/students"
           } else {

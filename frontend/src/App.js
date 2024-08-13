@@ -11,6 +11,7 @@ import { SignupPage } from './component/signin/signin';
 import { SignInPage } from './component/signin/signup';
 import ForgotPasswordPage from './component/signin/forgot';
 import { UsersData } from './component/students/students';
+import Dashboard from './component/dashboard/dashboard';
 
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/forgot" element={<ForgotPasswordPage />} />
-          <Route path="/students" element={test ? <UsersData /> : <SignInPage />} />
+          <Route path="/students" element={test ? <Dashboard/> : <SignInPage />} />
 
         </Routes>
       </BrowserRouter>

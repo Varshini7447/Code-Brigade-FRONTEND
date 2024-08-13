@@ -13,7 +13,6 @@ import {
     TableContainer,
     Button
 } from '@chakra-ui/react'
-import { Profile } from "../profile/profile";
 
 
 export const UsersData = () => {
@@ -33,10 +32,17 @@ export const UsersData = () => {
         sessionStorage?.removeItem('auth')
         window.location.reload()
     }
+    // const Delete=(Email)=>{
+    //    axios.delete(api+Email)
+    //    .then((res)=>{
+    //     window.location.reload();
+    //    })
+    //    .catch(e=>console.log(e));
+    // }
     return (
         <>
         
-            <Profile />
+          
             <TableContainer>
                 {/* <TableCaption>Students data</TableCaption> */}
                 <Table variant='simple'>
@@ -50,12 +56,13 @@ export const UsersData = () => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {data?.map((val) => (
-                            <Tr>
+                        {data?.map((val,index) => (
+                            <Tr key={index}>
                                 <Td>{val.Email}</Td>
                                 <Td>{val.Password}</Td>
                                 <Td>{val.firstName}</Td>
                                 <Td>{val.lastName}</Td>
+                                {/* <Td><Button onClick={()=>Delete(val.Email)}>delete</Button></Td> */}
                             </Tr>
                         ))
                         }
