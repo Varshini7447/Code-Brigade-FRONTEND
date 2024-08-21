@@ -516,10 +516,6 @@
 //   );
 // };
 
-
-
-
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Box, Button, Flex, Text, Link } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
@@ -570,21 +566,28 @@ export const WaterReminder = () => {
   const startReminder = () => {
     intervalRef.current = setInterval(() => {
       if (Notification.permission === 'granted') {
-        navigator.serviceWorker.getRegistration().then((registration) => {
-          registration.showNotification('Time to drink water!', {
-            body: 'It’s time to stay hydrated!',
-            icon: 'https://img.icons8.com/ios/50/000000/water.png',
-            actions: [
-              { action: 'accept', title: 'Accept' },
-              { action: 'decline', title: 'Decline' }
-            ]
-          });
+        navigator.serviceWorker.getRegistration().then(async (registration) => {
+          if (registration) {
+            // registration.showNotification('Time to drink water!', {
+            //   body: 'It’s time to stay hydrated!',
+            //   icon: 'https://img.icons8.com/ios/50/000000/water.png',
+            //   actions: [
+            //     { action: 'accept', title: 'Accept' },
+            //     { action: 'decline', title: 'Decline' }
+            //   ]
+            // });
+            alert("Time to drink water");
+            handleWaterLevelIncrease();
+          } else {
+            // Fallback if no service worker is registered
+            alert('no service worker is registered!');
+            handleWaterLevelIncrease();
+          }
         });
       } else {
-        alert('Time to drink water!');
-        handleWaterLevelIncrease();
+        alert('Notification permission not granted!');
       }
-    }, notificationLimit * 60 * 1000); // Interval in milliseconds
+    } , notificationLimit * 10 * 1000); // Interval in milliseconds
   };
 
   const handleWaterLevelIncrease = () => {
@@ -740,38 +743,28 @@ export const WaterReminder = () => {
                   padding: '8px 16px',
                   borderRadius: '5px',
                   boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)',
-                  backgroundColor: '#00aaff',
-                  color: 'white',
-                  fontWeight: 'bold',
-                  cursor: 'pointer'
+                  fontSize: '16px',
+                  transition: 'box-shadow 0.2s ease-in-out',
+                  cursor: 'pointer',
                 }}
-                disabled={timeInput <= 0 || timeInput > 24 || notificationLimit <= 0}
+                onMouseOver={(e) => e.currentTarget.style.boxShadow = '0px 4px 10px rgba(0, 0, 0, 0.2)'}
+                onMouseOut={(e) => e.currentTarget.style.boxShadow = '0px 2px 5px rgba(0, 0, 0, 0.1)'}
               >
-                Set Timer
+                Done
               </Button>
-              <Button
-                onClick={stopNotifications}
-                colorScheme='red'
-                style={{
-                  marginLeft: '10px',
-                  padding: '8px 16px',
-                  borderRadius: '5px',
-                  boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)',
-                  backgroundColor: 'red',
-                  color: 'white',
-                  fontWeight: 'bold',
-                  cursor: 'pointer'
-                }}
-                disabled={!notificationsActive}
-              >
+            </div>
+            {notificationsActive && (
+              <Button onClick={stopNotifications} colorScheme='red' style={{ marginTop: '15px' }}>
                 Stop Notifications
               </Button>
-              <br />
-              <Text>{notificationMessage}</Text>
-            </div>
+            )}
+            <Box mt="4">
+              <Text fontSize="lg">{notificationMessage}</Text>
+            </Box>
           </div>
         </div>
       </div>
     </>
   );
 };
+

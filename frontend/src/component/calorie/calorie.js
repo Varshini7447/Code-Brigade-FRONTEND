@@ -229,6 +229,7 @@ import {
   Link,
 } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
+import { api } from '../actions/api';
 
 const CalorieTracker = () => {
   const [foodItems, setFoodItems] = useState([]);
@@ -239,7 +240,7 @@ const CalorieTracker = () => {
   useEffect(() => {
     const fetchFoodItems = async () => {
       try {
-        const response = await fetch('http://localhost:9000/api/food-items');
+        const response = await fetch(api+`/api/food-items`);
         const data = await response.json();
         setFoodItems(data);
       } catch (error) {
@@ -257,7 +258,7 @@ const CalorieTracker = () => {
 
   const storeCalories = async () => {
     try {
-      const response = await axios.post('http://localhost:9000/api/store-calories', { totalCalories });
+      const response = await axios.post(api+`/api/store-calories`, { totalCalories });
       setMessage(response.data.message);
     } catch (error) {
       console.error('Error storing calories:', error);

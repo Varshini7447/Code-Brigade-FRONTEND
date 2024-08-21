@@ -16,6 +16,7 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import { api } from '../actions/api';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -36,13 +37,13 @@ const Dashboard = () => {
             try {
                 let response;
                 if (view === 'daily') {
-                    response = await axios.get('http://localhost:9000/api/daily-calories');
+                    response = await axios.get(api+`/api/daily-calories`);
                     setDailyData(response.data);
                 } else if (view === 'weekly') {
-                    response = await axios.get('http://localhost:9000/api/weekly-calories');
+                    response = await axios.get(api+`/api/weekly-calories`);
                     setWeeklyData(response.data);
                 } else if (view === 'monthly') {
-                    response = await axios.get('http://localhost:9000/api/monthly-calories');
+                    response = await axios.get(api+`/api/monthly-calories`);
                     setMonthlyData(response.data);
                 }
             } catch (error) {
