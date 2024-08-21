@@ -17,6 +17,7 @@ export const SignupPage = () => {
           if (res) {
             console.log(res)
             alert("register sucessfully")
+            window.location.href='/circularLinks'
           } else {
             alert("fill the data")
             // window.location.href="/signin"

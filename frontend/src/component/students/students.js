@@ -11,19 +11,20 @@ import {
     Td,
     TableCaption,
     TableContainer,
-    Button
+    Button,Box
 } from '@chakra-ui/react'
 
 
 export const UsersData = () => {
     const [data, setData] = useState([])
     const fetchData = async () => {
-        await axios.post(api + "/students")
+        await axios.post(api + "/data")
             .then((res) => {
                 setData(res?.data)
             })
             .catch((e) => console.log(e))
     }
+               
     useEffect(() => {
         fetchData()
     }, [])
@@ -32,6 +33,8 @@ export const UsersData = () => {
         sessionStorage?.removeItem('auth')
         window.location.reload()
     }
+
+    
     // const Delete=(Email)=>{
     //    axios.delete(api+Email)
     //    .then((res)=>{
@@ -41,6 +44,8 @@ export const UsersData = () => {
     // }
     return (
         <>
+         {/* <Navbar />
+      <Box backgroundColor="gray.200" minHeight="100vh" padding="20px" paddingTop="60px"> */}
         
           
             <TableContainer>
@@ -62,16 +67,19 @@ export const UsersData = () => {
                                 <Td>{val.Password}</Td>
                                 <Td>{val.firstName}</Td>
                                 <Td>{val.lastName}</Td>
-                                {/* <Td><Button onClick={()=>Delete(val.Email)}>delete</Button></Td> */}
+
                             </Tr>
                         ))
                         }
                     </Tbody>
                 </Table>
             </TableContainer>
-            <Button colorScheme='blue' onClick={SignOut}>Logout</Button>
         </>
     )
 }
 export default UsersData;
+
+
+
+
 

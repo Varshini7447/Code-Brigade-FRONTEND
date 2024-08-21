@@ -95,7 +95,8 @@ export const SignInPage = () => {
             console.log(res);
             sessionStorage.auth=JSON.stringify(res?.data?.values)
             alert("Signin successful");
-            window.location.href = "/students"
+           // window.location.href = "/students"
+           window.location.href = "/circularLinks"
           } else {
             alert("Invalid credentials");
           }
